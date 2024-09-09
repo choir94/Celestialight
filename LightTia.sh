@@ -376,10 +376,19 @@ start_celestia_node() {
         echo -e "${YELLOW}Para salir de screen, presione Ctrl+A, luego D.${NORMAL}"
     fi
 
-    log_message "Celestia Light Node started successfully."⠀⠀⠀⠀
+    log_message "Celestia Light Node started successfully."
 
-    echo -e "${BOLD_PINK} Join airdrop node https://t.me/airdrop_node ${RESET_COLOR}"
- 
+    echo -e "${GREEN}
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+AIRDROPNODE⠀⠀⠀⠀⠀
+ ${NORMAL}"
+}
+
+clear
+
+echo -e "${GREEN}
+AIRDROPNODE
+
 ${NORMAL}" | tee -a "$LOGFILE"
 
 if [ "$lang" == "EN" ];then
