@@ -387,6 +387,7 @@ AIRDROPNODE⠀⠀⠀⠀⠀
 clear
 
 echo -e "${GREEN}
+
 AIRDROPNODE
 
 ${NORMAL}" | tee -a "$LOGFILE"
@@ -394,8 +395,8 @@ ${NORMAL}" | tee -a "$LOGFILE"
 if [ "$lang" == "EN" ];then
     echo -e "${GREEN}${BOLD}${ITALIC}Welcome to the one-command script for Celestia Light Node!${NORMAL}"
     echo -e ""
-    echo -e "${GREEN}${BOLD}${ITALIC}This script was made with love by ${BOLD}@kkocality <3${NORMAL}"
-    echo -e "${GREEN}${BOLD}${ITALIC}For more: kocality.com${NORMAL}"
+    echo -e "${GREEN}${BOLD}${ITALIC}This script was made with love by ${BOLD}Airdrop_Node <3${NORMAL}"
+    echo -e "${GREEN}${BOLD}${ITALIC}For more: t.me/airdrop_node${NORMAL}"
 elif [ "$lang" == "TR" ];then
     echo -e "${GREEN}${BOLD}${ITALIC}Celestia Light Node için tek komutluk script'e hoş geldiniz!${NORMAL}"
     echo -e ""
