@@ -9,7 +9,10 @@ This guide will walk you through the process of setting up a Celestia Light Node
 - Docker and Docker Compose installed.
 
 ```bash
-LOADING
+wget -O Tialight.sh https://raw.githubusercontent.com/choir94/Celestialight/refs/heads/main/Tialight.sh && chmod +x Tialight.sh && ./Tialight.sh
 ```
-
+Cek logs screen
+```bash
+screen -r airdropnode_tia
+```
 ## DONE
