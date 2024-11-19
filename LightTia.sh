@@ -30,24 +30,40 @@ rotate_log_file() {
     fi
 }
 
-# Start script in a screen session
-start_in_screen() {
+# Ensure screen is installed
+ensure_screen_installed() {
+    if ! command -v screen &>/dev/null; then
+        echo -e "${YELLOW}Installing screen...${NORMAL}"
+        sudo apt update && sudo apt install screen -y
+    fi
+}
+
+# Start or attach to a screen session
+start_or_attach_screen() {
     SCREEN_SESSION_NAME="lightnode-celestia"
 
-    # Check if the script is already running in a screen session
+    # Check if inside a screen session
     if [ "$STY" ]; then
-        echo -e "${YELLOW}Running inside a screen session...${NORMAL}"
+        echo -e "${YELLOW}Running inside screen session: $SCREEN_SESSION_NAME${NORMAL}"
     else
-        # Start a new screen session
-        echo -e "${YELLOW}Starting script in a new screen session: $SCREEN_SESSION_NAME${NORMAL}"
-        screen -dmS "$SCREEN_SESSION_NAME" bash -c "$0 internal-run"
-        echo -e "${WHITE}You can attach to the screen session using:${NORMAL} screen -r $SCREEN_SESSION_NAME"
+        # Check if the screen session already exists
+        if screen -list | grep -q "$SCREEN_SESSION_NAME"; then
+            echo -e "${YELLOW}Attaching to existing screen session: $SCREEN_SESSION_NAME${NORMAL}"
+            screen -r "$SCREEN_SESSION_NAME"
+        else
+            echo -e "${YELLOW}Starting a new screen session: $SCREEN_SESSION_NAME${NORMAL}"
+            screen -S "$SCREEN_SESSION_NAME" -dm bash -c "$0 internal-run"
+            screen -r "$SCREEN_SESSION_NAME"
+        fi
         exit 0
     fi
 }
 
 # Main installation logic
 main_installation() {
+    # Display logo inside screen
+    display_logo
+
     echo -e "\n${YELLOW}Choose an option:${NORMAL}"
     echo -e "  ${WHITE}1)${NORMAL} Import Wallet from Mnemonic"
     echo -e "  ${WHITE}2)${NORMAL} Create New Wallet\n"
@@ -87,5 +103,6 @@ if [ "$1" == "internal-run" ]; then
     main_installation
 else
     display_logo
-    start_in_screen
+    ensure_screen_installed
+    start_or_attach_screen
 fi
