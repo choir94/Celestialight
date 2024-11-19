@@ -14,7 +14,7 @@ MAX_LOG_SIZE=52428800  # 50MB
 # Display logo
 display_logo() {
     curl -s https://raw.githubusercontent.com/choir94/Airdropguide/refs/heads/main/logo.sh | bash
-    sleep 2
+    sleep 5
 }
 
 log_message() {
@@ -73,7 +73,20 @@ main_installation() {
         1) 
             echo -e "\n${YELLOW}Enter your mnemonic phrase:${NORMAL}"
             read -p "Mnemonic: " mnemonic
-            log_message "Wallet imported using mnemonic phrase."
+
+            echo -e "${YELLOW}Importing wallet...${NORMAL}"
+            sudo docker run -e NODE_TYPE=light -e P2P_NETWORK=celestia \
+                -v $HOME/my-node-store:/home/celestia \
+                ghcr.io/celestiaorg/celestia-node:latest \
+                celestia light init --p2p.network celestia --recover --mnemonic "$mnemonic"
+
+            if [ $? -eq 0 ]; then
+                echo -e "${YELLOW}Wallet imported successfully.${NORMAL}"
+                log_message "Wallet imported using mnemonic phrase."
+            else
+                echo -e "${RED}Failed to import wallet. Please check your mnemonic.${NORMAL}"
+                log_message "Failed to import wallet."
+            fi
             ;;
         2) 
             echo -e "\n${YELLOW}Creating a new wallet...${NORMAL}\n"
