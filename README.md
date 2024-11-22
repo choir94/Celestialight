@@ -16,3 +16,7 @@ Cek logs screen
 screen -r airdropnode_tia
 ```
 ## DONE
+
+## Support Airdrop Node
+
+https://trakteer.id/AirdropNode/tip
